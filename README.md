@@ -11,6 +11,7 @@ It uses various AWS Services.
  * Application Load Balancer
  * Route53
  * Certificate Manager
+ * Secrets Manager
 
 ## Prerequisite
 
