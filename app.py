@@ -82,7 +82,8 @@ alb_stack = ALBStack(
     "ALB",
     vpc=vpc_stack.vpc,
     sg=vpc_stack.sg,
-    ins=ec2_stack.instance
+    ins=ec2_stack.instance,
+    domain_name=domain_name
 )
 alb_stack.add_dependency(ec2_stack)
 

@@ -1,9 +1,10 @@
 from aws_cdk import (
     core,
     aws_ec2 as ec2,
-    aws_ssm as ssm,
+    aws_route53 as route53,
     aws_elasticloadbalancingv2 as elbv2,
-    aws_elasticloadbalancingv2_targets as elbv2_targets
+    aws_elasticloadbalancingv2_targets as elbv2_targets,
+    aws_certificatemanager as acm,
 )
 
 
@@ -11,6 +12,7 @@ class ALBStack(core.NestedStack):
 
     def __init__(self, scope: core.Construct, construct_id: str,
                  vpc: ec2.Vpc, sg: ec2.SecurityGroup, ins: ec2.Instance,
+                 domain_name: str,
                  **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
@@ -27,11 +29,18 @@ class ALBStack(core.NestedStack):
             internet_facing=True,
         )
 
-        outline_certificate_arn = ssm.StringParameter.from_string_parameter_attributes(
-            self, "OutlineCertificateARNStringParameter", parameter_name="regional-outline-certificate-arn"
-        ).string_value
+        hosted_zone = route53.HostedZone.from_lookup(
+            self,
+            "TomatoBridgeDomain",
+            domain_name=domain_name
+        )
 
-        outline_certificate = elbv2.ListenerCertificate.from_arn(outline_certificate_arn)
+        outline_certificate = acm.Certificate(
+            self,
+            "RegionalOutlineCertificate",
+            domain_name=f"outline.{domain_name}",
+            validation=acm.CertificateValidation.from_dns(hosted_zone)
+        )
 
         https_listener = self._alb.add_listener(
             "OutlineALBHTTPSListener",

@@ -10,6 +10,7 @@ It uses various AWS Services.
  * EC2
  * Application Load Balancer
  * Route53
+ * Certificate Manager
 
 ## Prerequisite
 
@@ -36,7 +37,7 @@ To create application at slack, Refer to [Create App]
 
 When configuring the Client ID, add a redirect URL under "OAuth & Permissions"
 
-ex) https://<URL>/auth/slack.callback
+ex) https://**URL**/auth/slack.callback
 
 * URL : this is the URL registered at Route53
 * Client ID : this is SLACK_KEY in .envrc
