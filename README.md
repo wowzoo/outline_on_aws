@@ -1,65 +1,48 @@
 
 # Outline Wiki on AWS
+This project uses various AWS services.
 
-## prerequisite
+ * VPC
+ * Aurora PostgreSQL
+ * Elasticache Redis
+ * S3
+ * EC2
+ * Application Load Balancer
+ * Route53
+
+## Prerequisite
+
+### Domain
+Private Domain which is registered at Route53
+
+### AWS Account
+Create AWS Account, then Install AWS CLI and configure it.
+To install and configure AWS CLI, Refer to 
+https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
 
 ### CDK
 This is a CDK project for Python.
 
-To install CDK, Refer to link below
+To install CDK, Refer to 
 https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html
 
 ### direnv
 This is a tool that can load and unload environment variables depending on the current directory.
 
-To install direnv, Refer to link below
+To install direnv, Refer to 
 https://direnv.net/docs/installation.html
 
 
 ## Deploy CDK
 ```shell
 $ cd outline_on_aws
-```
-
-To manually create a virtualenv on MacOS and Linux:
-```shell
 $ python3 -m venv .venv
+$ source .venv/bin/activate
+$ pip install -r requirements.txt
+$ cdk deploy Outline
 ```
 
-After the init process completes and the virtualenv is created, you can use the following
-step to activate your virtualenv.
-```shell
-$ source .venv/bin/activate
-```
-To deactivate
+To deactivate virtual environment
 ```shell
 $ deactivate
 ```
-
-Once the virtualenv is activated, you can install the required dependencies.
-```shell
-$ pip install -r requirements.txt
-```
-
-
-
-
-At this point you can now synthesize the CloudFormation template for this code.
-
-```
-$ cdk synth
-```
-
-To add additional dependencies, for example other CDK libraries, just add
-them to your `setup.py` file and rerun the `pip install -r requirements.txt`
-command.
-
-## Useful commands
-
- * `cdk ls`          list all stacks in the app
- * `cdk synth`       emits the synthesized CloudFormation template
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk docs`        open CDK documentation
-
-Enjoy!
