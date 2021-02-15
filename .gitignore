@@ -3,9 +3,16 @@ package-lock.json
 __pycache__
 .pytest_cache
 .env
+.envrc
 .venv
 *.egg-info
 
 # CDK asset staging directory
 .cdk.staging
 cdk.out
+cdk.context.json
+
+.python-version
+.DS_Store
+backup/
+.idea/
