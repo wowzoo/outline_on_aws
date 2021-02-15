@@ -18,8 +18,7 @@ Private Domain which is registered at Route53
 
 ### AWS Account
 Create AWS Account, then Install AWS CLI and configure it.
-To install and configure AWS CLI, Refer to 
-https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
+To install and configure AWS CLI, Refer to [AWS CLI Install]
 
 ### CDK
 This is a CDK project for Python.
@@ -80,6 +79,7 @@ $ deactivate
 ```
 
 [outline wiki]: https://github.com/outline/outline
+[AWS CLI Install]: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
 [CDK Getting Started]: https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html
 [Direnv Installation]: https://direnv.net/docs/installation.html
 [Create App]: https://api.slack.com/apps
