@@ -27,6 +27,8 @@ setuptools.setup(
         "aws-cdk.aws-route53-targets==1.89.0",
         "aws-cdk.aws-rds==1.89.0",
         "aws-cdk.aws-elasticache==1.89.0",
+        "aws-cdk.aws-elasticache==1.89.0",
+        "aws-cdk.aws-autoscaling==1.89.0",
     ],
 
     python_requires=">=3.6",

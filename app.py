@@ -7,8 +7,7 @@ from outline.vpc_stack import VPCStack
 from outline.s3_stack import S3Stack
 from outline.db_stack import DBStack
 from outline.redis_stack import RedisStack
-from outline.ec2_stack import EC2Stack
-from outline.alb_stack import ALBStack
+from outline.asg_stack import ASGStack
 from outline.route53_stack import Route53Stack
 
 account = os.environ["CDK_ACCOUNT"]
@@ -58,9 +57,9 @@ db_stack = DBStack(
 )
 db_stack.add_dependency(vpc_stack)
 
-ec2_stack = EC2Stack(
+asg_stack = ASGStack(
     outline_stack,
-    "EC2",
+    "ASG",
     vpc=vpc_stack.vpc,
     sg=vpc_stack.sg,
     bucket=s3_stack.s3_bucket,
@@ -73,26 +72,16 @@ ec2_stack = EC2Stack(
     slack_key=slack_key,
     slack_secret=slack_secret,
 )
-ec2_stack.add_dependency(s3_stack)
-ec2_stack.add_dependency(db_stack)
-ec2_stack.add_dependency(redis_stack)
-
-alb_stack = ALBStack(
-    outline_stack,
-    "ALB",
-    vpc=vpc_stack.vpc,
-    sg=vpc_stack.sg,
-    ins=ec2_stack.instance,
-    domain_name=domain_name
-)
-alb_stack.add_dependency(ec2_stack)
+asg_stack.add_dependency(s3_stack)
+asg_stack.add_dependency(db_stack)
+asg_stack.add_dependency(redis_stack)
 
 route53_stack = Route53Stack(
     outline_stack,
     "Route53",
     domain_name=domain_name,
-    alb=alb_stack.alb
+    alb=asg_stack.alb
 )
-route53_stack.add_dependency(alb_stack)
+route53_stack.add_dependency(asg_stack)
 
 app.synth()
