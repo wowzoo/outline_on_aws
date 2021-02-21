@@ -60,6 +60,9 @@ ex) https://**URL**/auth/slack.callback
 * Client ID : this is SLACK_KEY in .envrc
 * Client Secret : this is SLACK_SECRET in .envrc
 
+### SMTP Sever
+AWS SES can be used for SMTP or set other SMTP
+
 ## Create .envrc
 direnv looks up .envrc and apply it's variables on environment
 
