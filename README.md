@@ -66,7 +66,7 @@ direnv looks up .envrc and apply it's variables on environment
 .envrc must have these variables
 ```shell
 # AWS Account number
-export CDK_ACCOUNT=111111111111
+export CDK_ACCOUNT=xxxxxxxxxxxx
 # Region where to deploy service
 export CDK_REGION=ap-northeast-2
 # profile name which is set when configuring AWS CLI
@@ -79,7 +79,14 @@ export KEY_PAIR=xxxxxxx
 export DOMAIN_NAME=xxxx.xxx
 # Slack key and secret
 export SLACK_KEY=1111111.111111
-export SLACK_SECRET=xxxxxxxx
+export SLACK_SECRET=xxxxxxx
+# SMTP setting
+export SMTP_HOST=xxxxxxx
+export SMTP_PORT=xxx
+export SMTP_USERNAME=xxxxxxx
+export SMTP_PASSWORD=xxxxxxx
+export SMTP_FROM_EMAIL=xxxxxxx
+export SMTP_REPLY_EMAIL=xxxxxxx
 ```
 
 ## Deploy CDK

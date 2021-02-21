@@ -1,6 +1,3 @@
-import boto3
-import json
-
 from aws_cdk import (
     core,
     aws_ec2 as ec2,
@@ -8,6 +5,8 @@ from aws_cdk import (
     aws_logs as logs,
     aws_secretsmanager as sm,
 )
+
+from utils.credentials_reader import CredentialsReader
 
 
 class DBStack(core.NestedStack):
@@ -17,14 +16,7 @@ class DBStack(core.NestedStack):
                  **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        client = boto3.client("secretsmanager")
-        response = client.get_secret_value(
-            SecretId="outline-db"
-        )
-
-        db_credential = json.loads(response["SecretString"])
-        username = db_credential['username']
-        password = db_credential['password']
+        db_credential = CredentialsReader(secret_name="outline-db")
 
         db_cluster = rds.DatabaseCluster(
             self,
@@ -55,7 +47,7 @@ class DBStack(core.NestedStack):
                     "OutlineDBSecret",
                     secret_name="outline-db"
                 ),
-                username=username
+                username=db_credential.username
             ),
             default_database_name="outline"
         )
@@ -66,7 +58,7 @@ class DBStack(core.NestedStack):
             value=f"{db_cluster.cluster_endpoint.socket_address}"
         )
 
-        self._db_url = f"{username}:{password}@{db_cluster.cluster_endpoint.socket_address}"
+        self._db_url = f"{db_credential.username}:{db_credential.password}@{db_cluster.cluster_endpoint.socket_address}"
 
     @property
     def db_url(self):

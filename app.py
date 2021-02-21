@@ -13,11 +13,8 @@ from outline.route53_stack import Route53Stack
 account = os.environ["CDK_ACCOUNT"]
 region = os.environ["CDK_REGION"]
 domain_name = os.environ["DOMAIN_NAME"]
-slack_key = os.environ["SLACK_KEY"]
-slack_secret = os.environ["SLACK_SECRET"]
 tag = os.environ["TAG"]
 key_pair = os.environ["KEY_PAIR"]
-profile_name = os.environ["AWS_PROFILE"]
 
 app = core.App()
 
@@ -63,14 +60,10 @@ asg_stack = ASGStack(
     vpc=vpc_stack.vpc,
     sg=vpc_stack.sg,
     bucket=s3_stack.s3_bucket,
-    region=region,
-    profile_name=profile_name,
-    domain_name=domain_name,
     db_url=db_stack.db_url,
     redis_url=redis_stack.redis_url,
-    key_pair=key_pair,
-    slack_key=slack_key,
-    slack_secret=slack_secret,
+    domain_name=domain_name,
+    key_pair=key_pair
 )
 asg_stack.add_dependency(s3_stack)
 asg_stack.add_dependency(db_stack)
